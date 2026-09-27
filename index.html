@@ -508,9 +508,11 @@ button{font:inherit;-webkit-appearance:none;appearance:none;}
 #hud .superTrack{width:72px!important;height:9px!important;flex:0 0 auto}
 #hud #soundBtn,#hud #pauseBtn{flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;border-radius:13px!important;font-size:20px!important;display:grid!important;place-items:center!important;line-height:1!important}
 #hud #soundBtn:focus-visible,#hud #pauseBtn:focus-visible{outline:3px solid rgba(93,231,255,.95);outline-offset:3px}
-#objectiveBanner{z-index:155!important;top:calc(max(8px,env(safe-area-inset-top)) + 54px)!important;max-width:min(560px,70vw)!important;overflow:hidden;text-overflow:ellipsis!important}
-#powerStatus{z-index:156!important;top:calc(max(8px,env(safe-area-inset-top)) + 91px)!important;max-width:min(420px,72vw)!important}
-#bossBar{z-index:154!important;top:calc(max(8px,env(safe-area-inset-top)) + 132px)!important}
+#objectiveBanner{z-index:155!important;top:calc(max(8px,env(safe-area-inset-top)) + 52px)!important;left:50%!important;max-width:min(560px,76vw)!important;min-height:0!important;padding:6px 12px!important;font-size:clamp(12px,1.8vw,16px)!important;line-height:1.15!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+#powerStatus{z-index:156!important;top:calc(max(8px,env(safe-area-inset-top)) + 91px)!important;max-width:min(430px,72vw)!important;min-height:0!important;padding:6px 12px!important;font-size:clamp(12px,1.8vw,16px)!important;line-height:1.2!important}
+#bossBar{z-index:154!important;top:calc(max(8px,env(safe-area-inset-top)) + 132px)!important;width:min(430px,66vw)!important}
+#bossBar .bossName{font-size:12px!important;margin-bottom:3px!important}
+#bossBar .bossTrack{height:10px!important}
 @media (max-width:700px){
   #hud{padding-left:7px!important;padding-right:7px!important}
   #hud .hudCluster{gap:4px!important}
@@ -524,10 +526,18 @@ button{font:inherit;-webkit-appearance:none;appearance:none;}
   #hud #superCountValue{font-size:10px;min-width:24px}
   #hud .levelPill,#hud .scorePill{min-width:36px!important}
   #hud #soundBtn,#hud #pauseBtn{flex-basis:38px!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;border-radius:11px!important;font-size:18px!important}
-  #objectiveBanner{top:calc(max(6px,env(safe-area-inset-top)) + 47px)!important;max-width:62vw!important;font-size:11px!important;padding:6px 10px!important}
-  #powerStatus{top:calc(max(6px,env(safe-area-inset-top)) + 80px)!important;max-width:72vw!important;padding:6px 10px!important;font-size:12px!important}
-  #bossBar{top:calc(max(6px,env(safe-area-inset-top)) + 119px)!important;width:min(360px,72vw)!important}
-  #bossBar .bossTrack{height:11px!important}
+  #objectiveBanner{top:calc(max(6px,env(safe-area-inset-top)) + 46px)!important;max-width:68vw!important;font-size:11px!important;padding:5px 9px!important}
+  #powerStatus{top:calc(max(6px,env(safe-area-inset-top)) + 78px)!important;max-width:68vw!important;padding:5px 9px!important;font-size:11px!important}
+  #bossBar{top:calc(max(6px,env(safe-area-inset-top)) + 112px)!important;width:min(330px,64vw)!important}
+  #bossBar .bossName{font-size:10px!important;margin-bottom:2px!important}
+  #bossBar .bossTrack{height:8px!important}
+}
+@media (orientation:landscape) and (max-height:520px){
+  #objectiveBanner{top:calc(max(5px,env(safe-area-inset-top)) + 44px)!important;max-width:70vw!important;font-size:11px!important;padding:4px 9px!important}
+  #powerStatus{top:calc(max(5px,env(safe-area-inset-top)) + 72px)!important;max-width:66vw!important;font-size:11px!important;padding:4px 9px!important}
+  #bossBar{top:calc(max(5px,env(safe-area-inset-top)) + 101px)!important;width:min(300px,58vw)!important}
+  #bossBar .bossName{font-size:9px!important;margin-bottom:2px!important}
+  #bossBar .bossTrack{height:7px!important}
 }
 @media (max-width:380px){
   #hud{gap:3px!important;padding-left:4px!important;padding-right:4px!important}
@@ -540,6 +550,29 @@ button{font:inherit;-webkit-appearance:none;appearance:none;}
   #hud .gemChargePill{min-width:38px!important}
 }
 @media (prefers-reduced-motion:reduce){#hud .hudPill,#hud #soundBtn,#hud #pauseBtn{transition:none!important}}
+</style>
+<style id="final-message-and-victory-fix">
+/* Final mobile message lane: compact, non-overlapping and outside the main play path. */
+#objectiveBanner,#powerStatus,#bossBar{box-sizing:border-box;pointer-events:none}
+#objectiveBanner,#powerStatus{max-height:34px!important}
+#objectiveBanner.show{opacity:1!important}
+#objectiveBanner.statusSuppressed{opacity:0!important;visibility:hidden!important}
+#end{z-index:1000!important;display:flex;align-items:center;justify-content:center;visibility:visible}
+#end.hidden{display:none!important}
+#end .panel{position:relative;z-index:1001;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-height:calc(100dvh - 24px);overflow-y:auto;overflow-x:hidden;pointer-events:auto;touch-action:pan-y}
+#end #againBtn{position:relative;z-index:1002;display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-user-select:none;user-select:none}
+@media (orientation:landscape) and (max-height:520px){
+  #end{padding:8px!important}
+  #end .panel{width:min(620px,92vw)!important;padding:12px 18px 14px!important;border-radius:22px!important;max-height:calc(100dvh - 16px)!important}
+  #end .logoMark{width:52px!important;height:52px!important;margin:0 auto 4px!important;font-size:32px!important;border-radius:16px!important}
+  #end .title{font-size:clamp(26px,5vw,42px)!important;margin:2px 0 5px!important}
+  #end .subtitle{font-size:clamp(12px,2vw,16px)!important;line-height:1.25!important;margin-bottom:8px!important}
+  #end .badges{gap:5px!important;margin:7px 0 9px!important}
+  #end .badge{padding:5px 8px!important;font-size:11px!important}
+  #end #againBtn{width:min(250px,62vw)!important;min-height:46px!important;margin:6px auto 0!important;padding:9px 18px!important;font-size:clamp(18px,3vw,23px)!important;border-radius:15px!important}
+}
+@media (hover:none) and (pointer:coarse){#end #againBtn:active{transform:scale(.97)!important}}
+@media (prefers-reduced-motion:reduce){#end #againBtn{animation:none!important}}
 </style>
 </head>
 <body>
@@ -588,7 +621,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing)se
 const hudDom={hpFill:document.getElementById("hpFill"),hpValue:document.getElementById("hpValue"),gems:document.getElementById("gems"),score:document.getElementById("score"),level:document.getElementById("level"),superFill:document.getElementById("superFill"),superPill:document.getElementById("superPill"),superCountValue:document.getElementById("superCountValue"),powerStatus:document.getElementById("powerStatus")};
 let hudCache={hp:-1,maxHp:-1,gems:-1,score:-1,level:-1,superCount:-1,superActive:false,superReady:false};
 let powerStatusTimer=0;
-function showPowerStatus(text,kind="super",ms=1900){const el=hudDom.powerStatus;if(!el)return;el.textContent=text;el.classList.toggle("fly",kind==="fly");el.classList.add("show");clearTimeout(powerStatusTimer);powerStatusTimer=setTimeout(()=>el.classList.remove("show"),ms)}
+function showPowerStatus(text,kind="super",ms=1900){const el=hudDom.powerStatus;if(!el)return;const objective=document.getElementById("objectiveBanner");if(objective)objective.classList.add("statusSuppressed");el.textContent=text;el.classList.toggle("fly",kind==="fly");el.classList.remove("show");void el.offsetWidth;el.classList.add("show");clearTimeout(powerStatusTimer);powerStatusTimer=setTimeout(()=>{el.classList.remove("show");if(objective)objective.classList.remove("statusSuppressed");},ms)}
 function updatePowerHUD(force=false){const active=superTimer>0;const ready=superCount>=3&&!active;const countChanged=superCount!==hudCache.superCount;if(force||countChanged||active!==hudCache.superActive||ready!==hudCache.superReady){if(hudDom.superFill)hudDom.superFill.style.width=active?"100%":Math.min(100,(superCount/3)*100)+"%";if(hudDom.superCountValue)hudDom.superCountValue.textContent=active?"مفعّلة":Math.min(3,superCount)+"/3";if(hudDom.superPill){hudDom.superPill.classList.toggle("superActive",active);hudDom.superPill.classList.toggle("superReady",ready)}hudCache.superCount=superCount;hudCache.superActive=active;hudCache.superReady=ready}}
 function updatePolishedHUD(){hud();updatePowerHUD();}
 const canvas=document.getElementById("game"),ctx=canvas.getContext("2d",{alpha:false,desynchronized:true}),W=1280,H=720;let view={w:W,h:H,dpr:1,scale:1,ox:0,oy:0};
@@ -1464,7 +1497,9 @@ function returnToStart(){
     betweenWaveTimer=0;finalEliteSpawned=false;finalBossSpawned=false;
     Object.assign(hero,{x:W/2,y:450,hp:currentDifficulty.maxHp||100,maxHp:currentDifficulty.maxHp||100,vy:0,flyVy:0,onGround:false,cool:0,inv:0,face:1,anim:0,slowUntil:0,speedBoostUntil:0,shieldUntil:0,flyUntil:0,fireFlash:0});
     pet.x=W/2-48;pet.y=430;pet.t=0;
-    document.getElementById("objectiveBanner")?.classList.remove("show");
+    document.getElementById("objectiveBanner")?.classList.remove("show","statusSuppressed");
+    document.getElementById("powerStatus")?.classList.remove("show");
+    clearTimeout(powerStatusTimer);
     document.getElementById("bossBar")?.classList.remove("show");
     document.getElementById("waveBreak")?.classList.remove("show");
     document.getElementById("levelCard")?.classList.remove("show");
@@ -1537,18 +1572,21 @@ function finish(win){
   document.getElementById("finalStars").textContent="★".repeat(finalStars)+"☆".repeat(3-finalStars);
   document.getElementById("bestScore").textContent=Math.max(best,score);
   renderProgressPreview();
-  hudEl.classList.add("hidden");touch.classList.add("hidden");setShuttleControlUI(false);document.getElementById("bossBar")?.classList.remove("show");document.getElementById("waveBreak")?.classList.remove("show");
-  end.classList.remove("hidden");updateOrientationUI();
-  if(win){
-    // Let the child enjoy the celebration and tap "العب مرة أخرى" whenever they're ready.
-    // This is only a safety net in case the screen is left untouched for a long while —
-    // it never fires while the player is still on this screen deciding what to do,
-    // and tapping the button (via returnToStart) cancels it immediately.
-    finishReturnTimer=setTimeout(()=>{
-      finishReturnTimer=null;
-      try{returnToStart();}catch(err){try{location.reload();}catch(_e){}}
-    },45000);
+  hudEl.classList.add("hidden");touch.classList.add("hidden");setShuttleControlUI(false);document.getElementById("bossBar")?.classList.remove("show");document.getElementById("waveBreak")?.classList.remove("show");document.getElementById("powerStatus")?.classList.remove("show");document.getElementById("banner")?.classList.remove("show");document.getElementById("toast")?.classList.remove("show");
+  end.classList.remove("hidden");
+  end.style.display="flex";
+  end.style.visibility="visible";
+  end.style.opacity="1";
+  end.style.pointerEvents="auto";
+  end.style.zIndex="1000";
+  const replayButton=document.getElementById("againBtn");
+  if(replayButton){
+    replayButton.style.display="flex";
+    replayButton.style.visibility="visible";
+    replayButton.style.opacity="1";
+    replayButton.style.pointerEvents="auto";
   }
+  updateOrientationUI();
 }
 const intro=document.getElementById("intro"),end=document.getElementById("end"),hudEl=document.getElementById("hud"),touch=document.getElementById("touch");
 const gameUI={banner:document.getElementById("banner")};
